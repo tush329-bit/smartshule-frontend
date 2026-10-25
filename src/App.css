@@ -1,0 +1,197 @@
+/* ==========================================================================
+   SMARTSHULE DASHBOARD ACCESSIBILITY & UI STYLES
+   ========================================================================== */
+
+/* 1. ✅ CRITICAL: Skip to Content Link (For Screen Reader & Keyboard Users) */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--accent);
+  color: #ffffff;
+  padding: 8px 16px;
+  z-index: 100;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 0 0 4px 0;
+  transition: top 0.2s ease-out;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* 2. ✅ DASHBOARD LAYOUT UTILITIES */
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+  background: var(--bg-subtle);
+}
+
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+/* 3. ✅ ACCESSIBLE CARDS (High contrast borders, not just shadows) */
+.card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  border-color: var(--accent-border);
+}
+
+/* 4. ✅ ACCESSIBLE DATA TABLES (Crucial for School Management) */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.data-table th {
+  background: var(--bg-subtle);
+  color: var(--text-h);
+  font-weight: 600;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border-bottom: 2px solid var(--border);
+}
+
+.data-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+
+/* ✅ Zebra striping for readability, but with high contrast */
+.data-table tbody tr:nth-child(even) {
+  background: var(--bg-subtle);
+}
+
+/* ✅ Hover state changes background AND adds a left border (not just color) */
+.data-table tbody tr:hover {
+  background: var(--accent-bg);
+  border-left: 3px solid var(--accent);
+  transition: background 0.15s ease, border-left 0.15s ease;
+}
+
+/* 5. ✅ ACCESSIBLE BUTTONS */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: 0.375rem;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
+  text-decoration: none;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #ffffff; /* Always white text on dark accent for max contrast */
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+}
+
+.btn-secondary {
+  background: var(--bg);
+  color: var(--text-h);
+  border-color: var(--border);
+}
+
+.btn-secondary:hover {
+  background: var(--bg-subtle);
+  border-color: var(--accent-border);
+}
+
+/* 6. ✅ ACCESSIBLE FORM INPUTS */
+.form-input,
+.form-select,
+.form-textarea {
+  width: 100%;
+  padding: 0.625rem 0.875rem;
+  font-size: 1rem;
+  color: var(--text-h);
+  background: var(--bg);
+  border: 2px solid var(--border);
+  border-radius: 0.375rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-input::placeholder {
+  color: #94a3b8; /* slate-400: readable but clearly a placeholder */
+}
+
+/* ✅ Strong, clear focus state for keyboard navigation */
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-bg);
+}
+
+/* 7. ✅ ACCESSIBLE BADGES & STATUS INDICATORS */
+/* Never rely on color alone. Always include an icon or text. */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: 9999px;
+  border: 1px solid transparent;
+}
+
+.badge-success {
+  background: rgba(16, 185, 129, 0.15); /* emerald-500 with opacity */
+  color: #047857; /* emerald-800: 7.1:1 contrast on white */
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.badge-warning {
+  background: rgba(245, 158, 11, 0.15); /* amber-500 with opacity */
+  color: #92400e; /* amber-800: 5.8:1 contrast on white */
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+.badge-danger {
+  background: rgba(239, 68, 68, 0.15); /* red-500 with opacity */
+  color: #991b1b; /* red-800: 7.1:1 contrast on white */
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+/* 8. ✅ RESPONSIVE ADJUSTMENTS */
+@media (max-width: 768px) {
+  .main-content {
+    padding: 1rem;
+  }
+  
+  .data-table {
+    font-size: 0.875rem;
+  }
+  
+  .data-table th,
+  .data-table td {
+    padding: 0.5rem;
+  }
+}

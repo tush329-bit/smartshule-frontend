@@ -1,0 +1,219 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   1. DESIGN TOKENS & ACCESSIBILITY VARIABLES
+   ========================================================================== */
+:root {
+  /* ✅ UPGRADED: Slate palette provides better readability and less eye strain than pure gray */
+  --text: #334155;       /* slate-700: 7.5:1 contrast on white (WCAG AAA) */
+  --text-h: #0f172a;     /* slate-900: 16.4:1 contrast on white (Maximum clarity) */
+  --bg: #ffffff;
+  --bg-subtle: #f8fafc;  /* slate-50: For subtle backgrounds */
+  --border: #cbd5e1;     /* slate-300: Clear, visible borders */
+  --code-bg: #f1f5f9;    /* slate-100 */
+  
+  /* ✅ UPGRADED: Deep violet for excellent visibility and brand identity */
+  --accent: #6d28d9;     /* violet-700: 5.8:1 contrast on white (WCAG AA) */
+  --accent-hover: #5b21b6; /* violet-800 */
+  --accent-bg: rgba(109, 40, 217, 0.1);
+  --accent-border: rgba(109, 40, 217, 0.5);
+  
+  --social-bg: rgba(241, 245, 249, 0.8);
+  --shadow: 0 10px 15px -3px rgba(15, 23, 42, 0.1), 0 4px 6px -4px rgba(15, 23, 42, 0.1);
+
+  --sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  --heading: var(--sans);
+  --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* ✅ UPGRADED: Use rem for scalable typography (respects user's browser zoom settings) */
+  font-size: 112.5%; /* Equivalent to 18px, but scales better */
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+  
+  color-scheme: light dark;
+  color: var(--text);
+  background: var(--bg);
+  
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ==========================================================================
+   2. DARK MODE (Manual .dark class trigger)
+   ========================================================================== */
+.dark {
+  /* ✅ UPGRADED: Softer dark background (slate-900) reduces harsh glare */
+  --text: #cbd5e1;       /* slate-300: 10.5:1 contrast on slate-900 (WCAG AAA) */
+  --text-h: #f8fafc;     /* slate-50: 15.1:1 contrast (Maximum clarity) */
+  --bg: #0f172a;         /* slate-900 */
+  --bg-subtle: #1e293b;  /* slate-800 */
+  --border: #334155;     /* slate-700 */
+  --code-bg: #1e293b;
+  
+  --accent: #a78bfa;     /* violet-400: Pops beautifully on dark backgrounds */
+  --accent-hover: #c4b5fd;
+  --accent-bg: rgba(167, 139, 250, 0.15);
+  --accent-border: rgba(167, 139, 250, 0.5);
+  --social-bg: rgba(30, 41, 59, 0.8);
+  --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.5);
+  
+  color: var(--text);
+  background: var(--bg);
+}
+
+/* ==========================================================================
+   3. GLOBAL RESETS & BASE STYLES
+   ========================================================================== */
+html {
+  /* ✅ NEW: Smooth scrolling, but respects user preferences */
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+#root {
+  width: 100%;
+  max-width: 1280px; /* Slightly wider for modern dashboards */
+  margin: 0 auto;
+  text-align: left; /* Better readability than center-aligned text */
+  border-inline: 1px solid var(--border);
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  background: var(--bg);
+}
+
+/* ✅ NEW: Beautiful, accessible text selection */
+::selection {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--heading);
+  font-weight: 600;
+  color: var(--text-h);
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 2.5rem; /* 40px */
+  letter-spacing: -0.02em;
+  margin: 1.5rem 0;
+}
+
+h2 {
+  font-size: 1.5rem; /* 24px */
+  margin: 0 0 0.75rem;
+}
+
+p {
+  margin: 0 0 1rem;
+  max-width: 65ch; /* ✅ NEW: Optimal line length for readability (65 characters) */
+}
+
+code, .counter {
+  font-family: var(--mono);
+  display: inline-flex;
+  border-radius: 0.375rem;
+  color: var(--text-h);
+}
+
+code {
+  font-size: 0.875rem;
+  padding: 0.25rem 0.5rem;
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+}
+
+/* ==========================================================================
+   4. ACCESSIBILITY: FOCUS & MOTION
+   ========================================================================== */
+/* ✅ UPGRADED: Use :focus-visible to only show outlines for keyboard users, not mouse clicks */
+button:focus-visible, 
+input:focus-visible, 
+select:focus-visible, 
+textarea:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 0.25rem;
+}
+
+/* ✅ CRITICAL NEW: Respect users with vestibular disorders (motion sickness) */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ✅ NEW: High contrast mode support for severely visually impaired users */
+@media (prefers-contrast: more) {
+  :root {
+    --text: #000000;
+    --text-h: #000000;
+    --bg: #ffffff;
+    --border: #000000;
+    --accent: #0000ee;
+  }
+  .dark {
+    --text: #ffffff;
+    --text-h: #ffffff;
+    --bg: #000000;
+    --border: #ffffff;
+    --accent: #ffff00;
+  }
+}
+
+/* ==========================================================================
+   5. PRINT OPTIMIZATION (Consolidated & Perfected)
+   ========================================================================== */
+@media print {
+  /* Hide everything by default */
+  body, body * {
+    visibility: hidden;
+  }
+  
+  /* Hide UI chrome */
+  .no-print, nav, aside, header, footer, button {
+    display: none !important;
+  }
+
+  /* Make the report card (or any .printable-area) visible */
+  .report-card-container, .printable-area, .printable-area * {
+    visibility: visible;
+  }
+
+  .report-card-container, .printable-area {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 1rem;
+    box-shadow: none !important;
+    border: none !important;
+    background: white !important;
+    color: black !important;
+  }
+
+  /* Force A4 page breaks */
+  .page-break {
+    page-break-after: always;
+  }
+
+  /* Ensure background colors (like table headers) print accurately */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
