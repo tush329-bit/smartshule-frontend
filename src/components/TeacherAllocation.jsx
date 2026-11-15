@@ -1,6 +1,6 @@
 // src/components/TeacherAllocation.jsx
 import { useState, useEffect } from 'react';
-import api from '../../api/axiosClient';
+import api from '../api/axiosClient';
 
 const TeacherAllocation = () => {
   const [teachers, setTeachers] = useState([]);

@@ -1,9 +1,8 @@
 // src/components/FeeStatement.jsx
 import { useState, useEffect } from 'react';
-import api from '../../api/axiosClient';
+import api from '../api/axiosClient';
 
 const FeeStatement = ({ studentId }) => {
-  const targetStudentId = studentId; // Removed hardcoded fallback for security
   const [statement, setStatement] = useState(null);
   const [loading, setLoading] = useState(true);
   const [amount, setAmount] = useState('');
@@ -12,10 +11,10 @@ const FeeStatement = ({ studentId }) => {
   const [message, setMessage] = useState('');
 
   const fetchStatement = async () => {
-    if (!targetStudentId) return;
+    if (!studentId) return;
     setLoading(true);
     try {
-      const res = await api.get(`/finance/statement/${targetStudentId}`);
+      const res = await api.get(`/finance/statement/${studentId}`);
       setStatement(res.data);
     } catch (error) {
       console.error('Fetch Error:', error);
@@ -25,13 +24,13 @@ const FeeStatement = ({ studentId }) => {
     }
   };
 
-  useEffect(() => { fetchStatement(); }, [targetStudentId]);
+  useEffect(() => { fetchStatement(); }, [studentId]);
 
   const handleStkPush = async (e) => {
     e.preventDefault();
     setMessage('🔄 Sending M-Pesa prompt to phone...');
     try {
-      const response = await api.post('/finance/stk-push', { student_id: targetStudentId, amount: parseFloat(amount), phone_number: phone });
+      const response = await api.post('/finance/stk-push', { student_id: studentId, amount: parseFloat(amount), phone_number: phone });
       if (response.data.success) {
         setMessage(`✅ Prompt sent! Check phone ${phone}.`);
         setAmount(''); setPhone('');
@@ -45,7 +44,7 @@ const FeeStatement = ({ studentId }) => {
     e.preventDefault();
     setMessage('🔄 Processing...');
     try {
-      await api.post('/finance/payments', { student_id: targetStudentId, amount: parseFloat(amount), transaction_code: mpesaCode, phone_number: phone });
+      await api.post('/finance/payments', { student_id: studentId, amount: parseFloat(amount), transaction_code: mpesaCode, phone_number: phone });
       setMessage('✅ Payment recorded successfully!');
       setAmount(''); setMpesaCode(''); setPhone('');
       fetchStatement();
@@ -54,7 +53,7 @@ const FeeStatement = ({ studentId }) => {
     }
   };
 
-  if (!targetStudentId) return <div className="p-4 text-center text-gray-500 dark:text-gray-400">Please select a student to view financial data.</div>;
+  if (!studentId) return <div className="p-4 text-center text-gray-500 dark:text-gray-400">Please select a student to view financial data.</div>;
   if (loading) return <div className="p-4 text-center text-gray-500 dark:text-gray-400">Loading financial data...</div>;
   if (!statement) return <div className="p-4 text-center"><p className="text-red-600 dark:text-red-400 font-bold">Failed to load data.</p><button onClick={fetchStatement} className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Try Again</button></div>;
 

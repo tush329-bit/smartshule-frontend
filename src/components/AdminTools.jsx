@@ -1,6 +1,6 @@
 // src/components/AdminTools.jsx
 import { useState } from 'react';
-import api from '../../api/axiosClient';
+import api from '../api/axiosClient';
 
 const AdminTools = () => {
   const [activeTool, setActiveTool] = useState('book');

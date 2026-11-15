@@ -1,6 +1,6 @@
 // src/components/DisciplineTab.jsx
 import { useState, useEffect } from 'react';
-import api from '../../api/axiosClient';
+import api from '../api/axiosClient';
 
 const DisciplineTab = ({ studentId }) => {
   const [records, setRecords] = useState([]);

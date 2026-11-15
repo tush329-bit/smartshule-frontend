@@ -1,11 +1,9 @@
 // src/components/teacher/MarkEntry.jsx
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../api/axiosClient'; // ✅ Correct 2-level deep path
 import toast from 'react-hot-toast';
-import { useSmartSync } from '../../hooks/useSmartSync';
+import { useSmartSync } from '../../hooks/useSmartSync'; // ✅ Correct 2-level deep path
 import CbcRubricSelector from '../ui/CbcRubricSelector';
-
-const API = import.meta.env.VITE_API_URL;
 
 const MarkEntry = () => {
   // 1. Destructure the smart sync engine
@@ -26,18 +24,13 @@ const MarkEntry = () => {
   const [marks, setMarks] = useState({});
   const [isSaving, setIsSaving] = useState(false);
 
-  // Helper to get auth headers
-  const getHeaders = () => ({
-    Authorization: `Bearer ${localStorage.getItem('smartshule_token')}`
-  });
-
   // 4. Fetch dropdown options on mount
   useEffect(() => {
     const loadOptions = async () => {
       try {
         const [allocationsRes, examsRes] = await Promise.all([
-          axios.get(`${API}/allocations/options`, { headers: getHeaders() }),
-          axios.get(`${API}/academics/exams`, { headers: getHeaders() })
+          api.get('/allocations/options'),
+          api.get('/academics/exams')
         ]);
         setClasses(allocationsRes.data.classes || []);
         setSubjects(allocationsRes.data.subjects || []);
@@ -59,7 +52,7 @@ const MarkEntry = () => {
     
     const loadStudents = async () => {
       try {
-        const res = await axios.get(`${API}/students?class_id=${selectedClass}`, { headers: getHeaders() });
+        const res = await api.get(`/students?class_id=${selectedClass}`);
         setStudents(res.data.students || []);
       } catch (err) {
         console.error('Failed to load students:', err);

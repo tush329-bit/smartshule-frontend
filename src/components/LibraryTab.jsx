@@ -1,6 +1,6 @@
 // src/components/LibraryTab.jsx
 import { useState, useEffect } from 'react';
-import api from '../../api/axiosClient';
+import api from '../api/axiosClient';
 
 const LibraryTab = ({ studentId }) => {
   const [books, setBooks] = useState([]);

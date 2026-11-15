@@ -1,6 +1,6 @@
 // src/components/ReportCardGenerator.jsx
 import { useState } from 'react';
-import api from '../../api/axiosClient';
+import api from '../api/axiosClient';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 

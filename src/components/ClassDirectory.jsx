@@ -1,6 +1,6 @@
 // src/components/ClassDirectory.jsx
 import { useState, useEffect } from 'react';
-import api from '../../api/axiosClient';
+import api from '../api/axiosClient';
 import UnifiedStudentProfile from './UnifiedStudentProfile';
 
 const ClassDirectory = () => {
