@@ -23,16 +23,12 @@ api.interceptors.request.use((config) => {
 // 3. RESPONSE INTERCEPTOR: Automatically handle expired tokens (401 Unauthorized)
 api.interceptors.response.use(
   (response) => {
-    // If the request is successful, just return the data
     return response;
   },
   (error) => {
-    // If the backend says "401 Unauthorized" (token expired or invalid)
     if (error.response?.status === 401 && window.location.pathname !== '/login') {
-      // Clear the bad data
       localStorage.removeItem('smartshule_token');
       localStorage.removeItem('smartshule_user');
-      // Kick the user back to the login page
       window.location.href = '/login';
     }
     return Promise.reject(error);
