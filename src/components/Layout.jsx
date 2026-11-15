@@ -1,6 +1,7 @@
 // src/components/Layout.jsx
 import { useTheme } from '../hooks/useTheme';
 import { useAuth } from '../context/AuthContext';
+import SyncStatusBadge from './ui/SyncStatusBadge'; // ✅ Import Sync Status Badge
 
 const Layout = ({ children }) => {
   const { isDark, toggleTheme } = useTheme();
@@ -37,14 +38,17 @@ const Layout = ({ children }) => {
                   🏫
                 </div>
               )}
-
+              
               {/* ✅ Dynamically display school name */}
               <span className="text-xl font-bold text-white drop-shadow-md">
                 {school.name}
               </span>
             </div>
-
+            
             <div className="flex items-center gap-4">
+              {/* ✅ Show offline sync status to teachers/principals */}
+              <SyncStatusBadge />
+              
               <button
                 onClick={toggleTheme}
                 className="p-2 rounded-full bg-white/20 hover:bg-white/30 text-white transition focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-transparent"
@@ -52,6 +56,7 @@ const Layout = ({ children }) => {
               >
                 {isDark ? '☀️' : '🌙'}
               </button>
+              
               <button 
                 onClick={handleLogout}
                 className="text-sm font-medium text-white bg-red-500/80 hover:bg-red-600 px-4 py-2 rounded transition focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-transparent"

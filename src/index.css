@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* ✅ CRITICAL: Enable manual .dark class toggling for Tailwind v4 */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* ==========================================================================
    1. DESIGN TOKENS & ACCESSIBILITY VARIABLES
    ========================================================================== */

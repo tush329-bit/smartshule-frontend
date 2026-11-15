@@ -4,7 +4,7 @@ import DashboardLayout from '../components/DashboardLayout';
 import TeacherAllocations from '../components/principal/TeacherAllocations';
 // Overview & Analytics
 import OverviewStats from '../components/principal/OverviewStats';
-import SchoolAnalytics from '../components/principal/SchoolAnalytics';
+import AnalyticsDashboard from '../components/principal/AnalyticsDashboard';
 
 // User & Staff Management
 import UserManagement from '../components/UserManagement';
@@ -84,12 +84,14 @@ const PrincipalDashboard = () => {
   ];
 
   return (
-    <DashboardLayout
-      title="Principal's Office"
-      subtitle="Manage your school's operations, staff, students, and performance"
-      icon="🏫"
-      sections={sections}
-    />
+    <DashboardLayout 
+  title="Principal Dashboard" 
+  subtitle="School-wide overview and analytics" 
+  icon="🏫"
+>
+  {/* ✅ Live Recharts visualizations instead of a static box */}
+  <AnalyticsDashboard /> 
+</DashboardLayout>
   );
 };
 
